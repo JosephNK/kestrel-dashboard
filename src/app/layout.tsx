@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import ConfigProvider from "antd/es/config-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,10 +24,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const theme = {
+    token: {
+      // 색상 시스템
+      colorPrimary: "#1677ff", // 기본 브랜드 색상
+      colorTextBase: "#ffffff", // 기본 텍스트 색상
+      colorTextHeading: "#ffffff", // 제목 텍스트 색상
+      colorBgBase: "#141414", // 기본 배경 색상
+
+      // 폰트 시스템
+      fontFamily: `var(--font-geist-sans)`,
+      fontFamilyCode: `var(--font-geist-mono)`,
+    },
+  };
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <AntdRegistry>
+          <ConfigProvider theme={theme}>{children}</ConfigProvider>
+        </AntdRegistry>
       </body>
     </html>
   );

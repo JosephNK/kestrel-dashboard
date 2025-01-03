@@ -1,0 +1,64 @@
+.container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.title {
+  margin-bottom: 48px !important;
+}
+
+.buttonContainer {
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 기본 소셜 버튼 스타일 */
+.socialButton {
+  width: 100% !important;
+  height: 56px !important;
+  border-radius: 16px !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.socialButton:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.socialButton:active {
+  transform: translateY(1px);
+}
+
+/* 구글 버튼 */
+.googleButton {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 애플 버튼 */
+.appleButton {
+  background: rgba(0, 0, 0, 0.6) !important;
+}
+
+.divider {
+  margin: 32px 0 !important;
+}
+
+.subText {
+  display: block;
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
