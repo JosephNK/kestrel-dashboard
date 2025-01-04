@@ -13,13 +13,14 @@ export async function middleware(request: NextRequest) {
 
   const session = await new AuthService(supabase).getSession();
 
+  const pathname = request.nextUrl.pathname;
+
   if (session) {
-    console.log("Middleware Exist Session Path", request.nextUrl.pathname);
+    console.log("Middleware Exist Session Path", pathname);
   }
 
-  // if (request.nextUrl.pathname.startsWith("/protected")) {
-  if (request.nextUrl.pathname === "/") {
-    if (!session) {
+  if (!session) {
+    if (!pathname.startsWith("/auth") && !pathname.startsWith("/signin")) {
       return NextResponse.redirect(new URL("/signin", request.url));
     }
   }
