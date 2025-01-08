@@ -76,6 +76,7 @@ export default function PageLayout(props: PropsWithChildren<PageLayoutProps>) {
 
   const router = useRouter();
 
+  // Find the item index
   function findItemIndex(name: string, findItem: string): number {
     const menu = menuLabels.find((menu) => menu.name === name);
     if (!menu) {
@@ -84,6 +85,7 @@ export default function PageLayout(props: PropsWithChildren<PageLayoutProps>) {
     return menu.items.findIndex((item) => item === findItem);
   }
 
+  // Find the item by index
   function findItemByIndex(name: string, findIndex: number): string {
     const menu = menuLabels.find((menu) => menu.name === name);
     if (!menu) {
