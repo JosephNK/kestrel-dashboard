@@ -6,6 +6,7 @@ import React from "react";
 import styles from "./page.module.css";
 import { AuthProvider, AuthService } from "@/services/auth_service";
 import { createClientComponentClient } from "@/utils/supabase/client";
+import { AUTH_URL_CALLBACK } from "../auth/callback/route";
 
 export default function Page() {
   const handleGoogleLogin = async () => {
@@ -13,7 +14,7 @@ export default function Page() {
     const supabase = createClientComponentClient();
     await new AuthService(supabase).signInWithOAuth(
       AuthProvider.GOOGLE,
-      `${location.origin}/auth/callback?next=/dashboard`
+      `${location.origin}/auth/callback?next=${AUTH_URL_CALLBACK}`
     );
   };
 
