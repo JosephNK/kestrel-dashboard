@@ -37,11 +37,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AntdRegistry>
-          <ThemeConfigProvider token={token}>
-            <QueryProviders>{children}</QueryProviders>
-          </ThemeConfigProvider>
-        </AntdRegistry>
+        <QueryProviders>
+          <AntdRegistry>
+            <ThemeConfigProvider token={token}>{children}</ThemeConfigProvider>
+          </AntdRegistry>
+        </QueryProviders>
       </body>
     </html>
   );

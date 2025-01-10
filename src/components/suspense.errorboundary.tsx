@@ -10,6 +10,7 @@ export const SuspenseAndErrorBoundary = ({
   children: React.ReactNode;
 }) => {
   const { reset } = useQueryErrorResetBoundary();
+
   return (
     <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
       <Suspense
