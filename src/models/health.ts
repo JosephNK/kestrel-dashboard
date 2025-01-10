@@ -1,3 +1,3 @@
-interface Health {
+export interface Health {
   status: string;
 }

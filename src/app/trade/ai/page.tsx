@@ -20,8 +20,8 @@ export default function Page() {
         onExchangeChange={(value) => {
           console.log("onExchangeChange", value);
         }}
-        onSymbolChange={(value) => {
-          console.log("onSymbolChange", value);
+        onTickerChange={(value) => {
+          console.log("onTickerChange", value);
         }}
         onScheduleChange={(value) => {
           console.log("onScheduleChange", value);

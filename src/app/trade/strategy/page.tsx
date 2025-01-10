@@ -2,11 +2,11 @@
 
 import { Typography, Button, Row } from "antd";
 import { AimOutlined } from "@ant-design/icons";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PageLayout from "@/components/page.layout";
 import PageTrade from "@/components/page.trade";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { APIService } from "@/services/api.service";
+import APIService from "@/services/api.service";
 import { SuspenseAndErrorBoundary } from "@/components/suspense.errorboundary";
 // import styles from "./page.module.css";
 
@@ -27,20 +27,28 @@ export default function Page() {
 }
 
 function SuspensePageComponent() {
-  const { data } = useSuspenseQuery({
-    queryKey: ["health"],
-    queryFn: () => APIService.instance.getHealth(),
+  const { data: exchanges } = useSuspenseQuery({
+    queryKey: ["exchanges"],
+    queryFn: () => APIService.instance.getExchanges(),
   });
 
-  console.log("data", data);
+  const [exchangeId] = useState(exchanges?.items[0].id ?? "");
+
+  const { data: ticker } = useSuspenseQuery({
+    queryKey: ["tickers"],
+    queryFn: () => APIService.instance.getTickers(exchangeId),
+  });
 
   return (
     <PageTrade
+      defaultExchange={exchanges?.items[0]}
+      exchanges={exchanges?.items}
+      tickers={ticker.items}
       onExchangeChange={(value) => {
         console.log("onExchangeChange", value);
       }}
-      onSymbolChange={(value) => {
-        console.log("onSymbolChange", value);
+      onTickerChange={(value) => {
+        console.log("onTickerChange", value);
       }}
       onScheduleChange={(value) => {
         console.log("onScheduleChange", value);

@@ -1,15 +1,7 @@
 "use client";
 
 import type { RadioChangeEvent, InputNumberProps } from "antd";
-import {
-  Typography,
-  InputNumber,
-  Radio,
-  Space,
-  Select,
-  Divider,
-  Layout,
-} from "antd";
+import { Typography, InputNumber, Radio, Space, Select, Divider } from "antd";
 import React, {
   PropsWithChildren,
   useCallback,
@@ -19,14 +11,19 @@ import React, {
 } from "react";
 import { NumberAnimationText } from "./number.animation";
 import { debounce } from "lodash";
+import { Ticker } from "@/models/ticker";
+import { Exchange } from "@/models/exchange";
 // import styles from "./page.trade.module.css";
 
 export type InvestmentMethodOptionValue = "InvMethodOpt1" | "InvMethodOpt2";
 
 export type PageTradeProps = {
   style?: React.CSSProperties;
+  defaultExchange?: Exchange;
+  exchanges?: Exchange[];
+  tickers?: Ticker[];
   onExchangeChange?: (value: string) => void;
-  onSymbolChange?: (value: string) => void;
+  onTickerChange?: (value: string) => void;
   onScheduleChange?: (value: string) => void;
   onInvestmentMethodOptionChange?: (value: string) => void;
   onInitialInvestmentRatioChange?: (value: number) => void;
@@ -35,15 +32,16 @@ export type PageTradeProps = {
 export default function PageTrade(props: PropsWithChildren<PageTradeProps>) {
   const {
     children,
-    style,
+    defaultExchange,
+    exchanges,
+    tickers,
     onExchangeChange,
-    onSymbolChange,
+    onTickerChange,
     onScheduleChange,
     onInvestmentMethodOptionChange,
     onInitialInvestmentRatioChange,
   } = props;
-
-  const [assetsHeld, setAssetsHeld] = useState(0);
+  const [assetsHeld] = useState(0);
 
   const [assetsRatio, setAssetsRatio] = useState(10);
 
@@ -60,24 +58,27 @@ export default function PageTrade(props: PropsWithChildren<PageTradeProps>) {
     []
   );
 
+  const updateCost = useCallback(
+    (asset: number, ratio: number) => {
+      const cost = asset * (ratio / 100);
+      debouncedInvestmentCostOnChange(cost);
+    },
+    [debouncedInvestmentCostOnChange]
+  );
+
   useEffect(() => {
     updateCost(assetsHeld, assetsRatio);
     return () => {
       console.log("cleaned up");
     };
-  }, []);
-
-  const updateCost = (asset: number, ratio: number) => {
-    const cost = asset * (ratio / 100);
-    debouncedInvestmentCostOnChange(cost);
-  };
+  }, [assetsHeld, assetsRatio, updateCost]);
 
   const exchangeOnChange = (value: string) => {
     onExchangeChange?.call(null, value);
   };
 
-  const symbolOnChange = (value: string) => {
-    onSymbolChange?.call(null, value);
+  const tickerOnChange = (value: string) => {
+    onTickerChange?.call(null, value);
   };
 
   const scheduleOnChange = (value: string) => {
@@ -106,34 +107,30 @@ export default function PageTrade(props: PropsWithChildren<PageTradeProps>) {
       <div style={{ overflowY: "auto" }}>
         <Typography.Title level={5}>Select Exchange</Typography.Title>
         <Select
-          defaultValue="lucy"
+          defaultValue={defaultExchange?.id}
           style={{ width: 150 }}
           onChange={exchangeOnChange}
-          options={[
-            { value: "jack", label: "Jack" },
-            { value: "lucy", label: "Lucy" },
-            { value: "Yiminghe", label: "yiminghe" },
-            { value: "disabled", label: "Disabled", disabled: true },
-          ]}
+          options={exchanges?.map((exchange) => ({
+            value: exchange.id,
+            label: exchange.name,
+          }))}
         />
         <Divider />
-        <Typography.Title level={5}>Select Symbol</Typography.Title>
+        <Typography.Title level={5}>Select Ticker</Typography.Title>
         <Select
-          defaultValue="lucy"
+          defaultValue={tickers?.[0].id}
           style={{ width: 150 }}
-          onChange={symbolOnChange}
-          options={[
-            { value: "jack", label: "Jack" },
-            { value: "lucy", label: "Lucy" },
-            { value: "Yiminghe", label: "yiminghe" },
-            { value: "disabled", label: "Disabled", disabled: true },
-          ]}
+          onChange={tickerOnChange}
+          options={tickers?.map((ticker) => ({
+            value: ticker.id,
+            label: ticker.name,
+          }))}
         />
         <Divider />
         <Typography.Title level={5}>
           Assets held From Select Exchange
         </Typography.Title>
-        <NumberAnimationText number={assetsHeld} />
+        <NumberAnimationText uniqueKey={"AssetsHeld"} number={assetsHeld} />
         <Divider />
         <Typography.Title level={5}>
           Initial investment in assets held of %
@@ -149,7 +146,10 @@ export default function PageTrade(props: PropsWithChildren<PageTradeProps>) {
         />
         <Divider />
         <Typography.Title level={5}>Initial investment cost</Typography.Title>
-        <NumberAnimationText number={investmentCost} />
+        <NumberAnimationText
+          uniqueKey={"InvestmentCost"}
+          number={investmentCost}
+        />
         <Divider />
         <Typography.Title level={5}>Investment method</Typography.Title>
         <Radio.Group

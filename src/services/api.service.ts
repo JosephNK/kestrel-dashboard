@@ -1,6 +1,14 @@
 import axios, { AxiosInstance } from "axios";
+import { Ticker } from "@/models/ticker";
+import { Health } from "@/models/health";
+import { Exchange } from "@/models/exchange";
 
-export class APIService {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type APIResponse<T> = T extends Array<any>
+  ? { statusCode: number; items: T }
+  : { statusCode: number; item: T };
+
+export default class APIService {
   private static _instance: APIService;
   private axiosInstance: AxiosInstance;
 
@@ -28,6 +36,33 @@ export class APIService {
     try {
       const response = await this.axiosInstance.get("/health");
       const data = response.data as Health;
+      return data;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  public async getExchanges(): Promise<APIResponse<Exchange[]>> {
+    try {
+      const response = await this.axiosInstance.get("/api/v1/info/exchanges");
+      const data = response.data as APIResponse<Exchange[]>;
+      return data;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  public async getTickers(
+    exchange_provider: string | undefined
+  ): Promise<APIResponse<Ticker[]>> {
+    try {
+      const queryParams = {
+        exchange_provider,
+      };
+      const response = await this.axiosInstance.get("/api/v1/info/tickers", {
+        params: queryParams,
+      });
+      const data = response.data as APIResponse<Ticker[]>;
       return data;
     } catch (e) {
       throw e;
