@@ -1,4 +1,4 @@
-import { KestrelAPIService } from "@/services/kestrel.service";
+import { APIService } from "@/services/api.service";
 import { getQueryClient } from "@/utils/react-query/query-client";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
@@ -7,7 +7,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
 
   queryClient.prefetchQuery({
     queryKey: ["health"],
-    queryFn: () => KestrelAPIService.instance.getHealth(),
+    queryFn: () => APIService.instance.getHealth(),
   });
 
   return (

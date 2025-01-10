@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { AuthService } from "@/services/auth_service";
+import { AuthService } from "@/services/auth.service";
 import { createMiddlewareServerClient } from "@/utils/supabase/middleware";
 
 export async function middleware(request: NextRequest) {

@@ -1,7 +1,7 @@
 "use server";
 
 import { NextResponse } from "next/server";
-import { AuthService } from "@/services/auth_service";
+import { AuthService } from "@/services/auth.service";
 import { createRouteHandlerClient } from "@/utils/supabase/server";
 
 export async function GET(request: Request) {

@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import PageLayout from "@/components/page.layout";
 import PageTrade from "@/components/page.trade";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { KestrelAPIService } from "@/services/kestrel.service";
+import { APIService } from "@/services/api.service";
 import { SuspenseAndErrorBoundary } from "@/components/suspense.errorboundary";
 // import styles from "./page.module.css";
 
@@ -29,7 +29,7 @@ export default function Page() {
 function SuspensePageComponent() {
   const { data } = useSuspenseQuery({
     queryKey: ["health"],
-    queryFn: () => KestrelAPIService.instance.getHealth(),
+    queryFn: () => APIService.instance.getHealth(),
   });
 
   console.log("data", data);

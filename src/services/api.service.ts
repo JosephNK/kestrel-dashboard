@@ -1,11 +1,7 @@
 import axios, { AxiosInstance } from "axios";
 
-export class APIPath {
-  static health = "/health";
-}
-
-export class KestrelAPIService {
-  private static _instance: KestrelAPIService;
+export class APIService {
+  private static _instance: APIService;
   private axiosInstance: AxiosInstance;
 
   private constructor() {
@@ -16,23 +12,21 @@ export class KestrelAPIService {
     });
     this.axiosInstance.interceptors.response.use(
       (response) => {
-        // Can be modified response
         return response;
       },
       (error) => {
-        // Handle response errors here
         return Promise.reject(error);
       }
     );
   }
 
-  public static get instance(): KestrelAPIService {
+  public static get instance(): APIService {
     return this._instance || (this._instance = new this());
   }
 
   public async getHealth(): Promise<Health> {
     try {
-      const response = await this.axiosInstance.get(APIPath.health);
+      const response = await this.axiosInstance.get("/health");
       const data = response.data as Health;
       return data;
     } catch (e) {

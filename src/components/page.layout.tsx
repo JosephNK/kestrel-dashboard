@@ -72,6 +72,7 @@ export default function PageLayout(props: PropsWithChildren<PageLayoutProps>) {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const menuNames = menuLabels.map((item, _) => item["name"]);
 
   const router = useRouter();
