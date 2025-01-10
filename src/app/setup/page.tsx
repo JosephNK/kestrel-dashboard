@@ -1,7 +1,8 @@
 "use client";
 
-import { Space, Typography } from "antd";
-import React from "react";
+import type { RadioChangeEvent, InputNumberProps } from "antd";
+import { Typography, InputNumber, Radio, Space, Select } from "antd";
+import React, { useState } from "react";
 import PageLayout from "@/components/page.layout";
 // import styles from "./page.module.css";
 

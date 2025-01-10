@@ -1,14 +1,44 @@
 "use client";
 
-import { Space, Typography } from "antd";
-import React from "react";
+import { Typography, Button, Row } from "antd";
+import { AimOutlined } from "@ant-design/icons";
+import React, { useState } from "react";
 import PageLayout from "@/components/page.layout";
+import PageTrade from "@/components/page.trade";
 // import styles from "./page.module.css";
 
 export default function Page() {
   return (
     <PageLayout selectedMenuKey="Trade" selectedSubMenu="Strategy">
-      <Typography.Title level={2}>Strategy</Typography.Title>
+      <PageTrade
+        onExchangeChange={(value) => {
+          console.log("onExchangeChange", value);
+        }}
+        onSymbolChange={(value) => {
+          console.log("onSymbolChange", value);
+        }}
+        onScheduleChange={(value) => {
+          console.log("onScheduleChange", value);
+        }}
+        onInvestmentMethodOptionChange={(value) => {
+          console.log("onInvestmentMethodOptionChange", value);
+        }}
+        onInitialInvestmentRatioChange={(value) => {
+          console.log("onInitialInvestmentRatioChange", value);
+        }}
+      >
+        <Row justify={"space-between"}>
+          <Typography.Title level={2}>Strategy Trade</Typography.Title>
+          <Button
+            type="primary"
+            icon={<AimOutlined />}
+            iconPosition="end"
+            disabled={true}
+          >
+            Run
+          </Button>
+        </Row>
+      </PageTrade>
     </PageLayout>
   );
 }

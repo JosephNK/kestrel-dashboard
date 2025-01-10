@@ -1,7 +1,7 @@
 "use client";
 
 import React, { PropsWithChildren } from "react";
-import { CodeOutlined, LaptopOutlined } from "@ant-design/icons";
+import { StockOutlined, LineChartOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme, Typography } from "antd";
 import { useRouter } from "next/navigation";
@@ -11,7 +11,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 export type MenuLabel = "Trade" | "Backtesting";
 
-const menuIcons = [CodeOutlined, LaptopOutlined];
+const menuIcons = [StockOutlined, LineChartOutlined];
 const menuLabels = [
   {
     name: "Trade",
