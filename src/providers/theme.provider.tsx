@@ -3,7 +3,7 @@
 import { ConfigProvider, theme } from "antd";
 import { AliasToken } from "antd/es/theme/interface/alias";
 
-interface ThemeConfigProviderProps {
+export interface ThemeConfigProviderProps {
   children: React.ReactNode;
   token?: Partial<AliasToken>;
 }

@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
-import ThemeConfigProvider from "@/components/theme.config.provider";
-import RecoilRootWrapper from "@/components/recoil.root.wrapper";
+import ThemeConfigProvider from "@/providers/theme.provider";
+import APIContextProvider from "@/providers/api.provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,7 +39,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AntdRegistry>
           <ThemeConfigProvider token={token}>
-            <RecoilRootWrapper>{children}</RecoilRootWrapper>
+            <APIContextProvider>{children}</APIContextProvider>
           </ThemeConfigProvider>
         </AntdRegistry>
       </body>

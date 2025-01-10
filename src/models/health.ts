@@ -1,0 +1,3 @@
+interface Health {
+  status: string;
+}
