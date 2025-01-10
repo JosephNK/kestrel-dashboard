@@ -1,8 +1,8 @@
+"use server";
+
 import { NextResponse } from "next/server";
 import { AuthService } from "@/services/auth_service";
 import { createRouteHandlerClient } from "@/utils/supabase/server";
-
-export const AUTH_URL_CALLBACK = "/trade/Strategy";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);

@@ -2,22 +2,13 @@
 
 import { Typography, Button, Row } from "antd";
 import { AimOutlined } from "@ant-design/icons";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import PageLayout from "@/components/page.layout";
 import PageTrade from "@/components/page.trade";
-import { APIContext } from "@/contexts/api.context";
 // import styles from "./page.module.css";
 
 export default function Page() {
-  const { state, fetchHealth } = useContext(APIContext);
-  const { loading, data, error } = state;
-
-  console.log("loading", loading);
-  console.log("data", data);
-  console.log("error", error);
-
   useEffect(() => {
-    fetchHealth();
     return () => {
       console.log("cleaned up");
     };
