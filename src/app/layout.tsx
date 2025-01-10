@@ -1,19 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { font1, font2, themeToken } from "@/utils/font/font";
 import ThemeConfigProvider from "@/providers/theme.provider";
 import QueryProviders from "@/utils/react-query/query-provider";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Kestrel Dashboard",
@@ -25,21 +15,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const token = {
-    // Primary
-    colorPrimary: "#8e51bd",
-
-    // Font System
-    fontFamily: `var(--font-geist-sans)`,
-    fontFamilyCode: `var(--font-geist-mono)`,
-  };
-
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${font1.variable} ${font2.variable}`}>
         <QueryProviders>
           <AntdRegistry>
-            <ThemeConfigProvider token={token}>{children}</ThemeConfigProvider>
+            <ThemeConfigProvider token={themeToken}>
+              {children}
+            </ThemeConfigProvider>
           </AntdRegistry>
         </QueryProviders>
       </body>
